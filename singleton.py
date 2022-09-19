@@ -1,20 +1,25 @@
-class Singleton:
+"""
+Шаблон Singleton надає механізм створення одного і тільки один примірника об'єкта, і надання до нього
+глобальну точку доступу. Тому, Singletons зазвичай використовуються в таких випадках, як ведення журналу або операції
+з базою даних, диспетчера черги друку і багатьох інших, де існує необхідність мати тільки один екземпляр, який доступний
+у всьому додатку, щоб уникнути конфліктуючих запитів на один і той же ресурс. Наприклад, ми можемо захотіти використовувати
+один об'єкт бази даних для виконання операцій з БД длязабезпечення узгодженості даних або один об'єкт класу
+ведення журналу для декількох служб, щоб послідовно вивантажувати повідомлення журналу в певний файл журналу.
 
-    def __new__(cls, *args):
-        if not hasattr(cls, 'instance'):
+"""
+
+class Singleton:
+    def __new__(cls):
+        if not hasattr(cls, 'instance'):# Метод hasattr спеціальний метод, що дозволяє визначити, чи має об'єкт певну властивість)
             cls.instance = super().__new__(cls)
         return cls.instance
+    # def __init__(self,c):
+    #     self._c = c
+    # def __str__(self):
+    #     return str(self._c)
 
-    def __init__(self, c):
-        self._c = c
+s = Singleton()
+print("Object created", s)
+s1 = Singleton()
+print("Object created", s1)
 
-    def __str__(self):
-        return str(self._c)
-
-
-s = Singleton(1)
-print("object created", s)
-s1 = Singleton(2)
-print("object created", s1)
-
-print(Singleton.__dict__)
